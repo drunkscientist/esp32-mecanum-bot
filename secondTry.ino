@@ -19,16 +19,17 @@ int m;
 // Define some steppers and the pins the will use
 AccelStepper LFwheel(1, 27, 25);  // (Type:driver, STEP, DIR)
 AccelStepper RFwheel(1, 32, 12 );
-AccelStepper LRwheel(1, 9, 14 );//git test line
+AccelStepper LRwheel(1, 9, 14 );
 AccelStepper RRwheel(1, 4,  0);
 
 
 void setup()
 {  
-    pinMode(motEn, HIGH);
+    pinMode(motEn, OUTPUT);
+    digitalWrite(motEn, 0);
     
 
-        PS4.begin("03:03:03:03:03:03");
+      PS4.begin("03:03:03:03:03:03");
 
   
     LFwheel.setMaxSpeed(pace);
@@ -37,22 +38,31 @@ void setup()
     
     RFwheel.setMaxSpeed(pace);
     RFwheel.setAcceleration(zip);
-   // RFwheel.moveTo(7000);
+   // RFwheel.moveTo(1000000);
 
     LRwheel.setMaxSpeed(pace);
     LRwheel.setAcceleration(zip);
+    //LRwheel.moveTo(10000000);
 
     RRwheel.setMaxSpeed(pace);
     RRwheel.setAcceleration(zip);
+    //RRwheel.moveTo(1000000);
 
     Serial.begin(9600);
     //Serial1.begin(9600);
+     PS4.attachOnConnect(onConnection);
     Serial.println("setup complete");
     //pwrChk();
 
-    
-    
-    
+}
+
+void onConnection(){
+  if (PS4.isConnected()){
+    Serial.println("controller connected. ready?");
+    digitalWrite(motEn, 1);
+    PS4.setLed(250,0,0);
+    PS4.sendToController();
+  }
 }
 
 void loop()
