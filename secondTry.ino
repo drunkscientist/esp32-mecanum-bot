@@ -51,6 +51,7 @@ void setup()
     Serial.begin(9600);
     //Serial1.begin(9600);
      PS4.attachOnConnect(onConnection);
+     PS4.attach(onEvent);
     Serial.println("setup complete");
     //pwrChk();
 
@@ -65,6 +66,45 @@ void onConnection(){
   }
 }
 
+void onEvent(){
+
+  if(PS4.event.button_down.up){
+    m = 8;
+  }
+  if(PS4.event.button_down.down){
+    m = 2;
+  }
+  if(PS4.event.button_down.left){
+    m = 4;
+  }
+  if(PS4.event.button_down.right){
+    m = 6;
+  }
+  if(PS4.event.button_down.upleft){
+    m = 7;
+  }
+  if(PS4.event.button_down.upright){
+    m = 9;
+  }
+  if(PS4.event.button_down.downleft){
+    m = 1;
+  }
+  if(PS4.event.button_down.downright){
+    m = 3;
+  }
+  if(PS4.event.button_down.l1){
+    rotLeft();
+  }
+  if(PS4.event.button_down.r1){
+    rotRight();
+  }
+
+  else {
+    stap();
+    }
+}
+
+
 void loop()
 {
       
@@ -74,7 +114,8 @@ void loop()
     RFwheel.runSpeed();
     
     look();
-/*    switch (m){
+
+   switch (m){
       case 8:
         moveForw();
        break;
@@ -115,21 +156,12 @@ void loop()
         rotRight();
        break;
 
-
-
       default:
         stap();
        break;  
-    }*/
-  
-  
+    }
   //pwrChk();
-
 }
-
-
-
-
 void moveForw(){
   Serial.println("moving forward");
   LFwheel.setSpeed(pace);
@@ -201,6 +233,7 @@ void backRight(){
   LRwheel.setSpeed(-pace);
   }
 void stap(){
+  Serial.println("STOP");
   LFwheel.setSpeed(0);
   RFwheel.setSpeed(0);
   RRwheel.setSpeed(0);
@@ -220,22 +253,25 @@ void pwrChk(){
   }
 
 void look(){
-  if (PS4.isConnected()) {
-    
+ /* if (PS4.isConnected()) {
     Serial.println("reading serial");
-    
     if ( PS4.data.button.up ){
       moveForw();
     }
     if (PS4.data.button.left){
       moveLeft();  
-   }
-   
-  }
+   } 
+  }*/
+  
+  if (Serial.available() > 0) {
+    Serial.println("reading serial");
+    dataIn = Serial.read();
+    Serial.println(dataIn);
+    m = dataIn - 48;
 }
 
 
-
+}
 
 
 
