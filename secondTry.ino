@@ -51,6 +51,7 @@ void setup()
     Serial.begin(9600);
     //Serial1.begin(9600);
      PS4.attachOnConnect(onConnection);
+     PS4.attachOnDisconnect(onDisconnect);
      PS4.attach(onEvent);
     Serial.println("setup complete");
     //pwrChk();
@@ -63,6 +64,13 @@ void onConnection(){
     digitalWrite(motEn, 1);
     PS4.setLed(250,0,0);
     PS4.sendToController();
+  }
+}
+
+void onDisconnect(){
+  if (!PS4.isConnected()){
+    Serial.println("lost controller");
+    digitalWrite(motEn, 0);
   }
 }
 
@@ -155,10 +163,11 @@ void loop()
       case 5:
         rotRight();
        break;
-
+/*
       default:
         stap();
        break;  
+*/
     }
   //pwrChk();
 }
