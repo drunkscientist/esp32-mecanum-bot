@@ -71,6 +71,7 @@ void onDisconnect(){
   if (!PS4.isConnected()){
     Serial.println("lost controller");
     digitalWrite(motEn, 0);
+    stap();
   }
 }
 
@@ -78,6 +79,10 @@ void onEvent(){
 
   if(PS4.event.button_down.up){
     m = 8;
+  }
+  if(PS4.event.button_up.up){
+    m = 100;
+    stap();
   }
   if(PS4.event.button_down.down){
     m = 2;
@@ -107,9 +112,6 @@ void onEvent(){
     rotRight();
   }
 
-  else {
-    stap();
-    }
 }
 
 
@@ -163,11 +165,11 @@ void loop()
       case 5:
         rotRight();
        break;
-/*
+
       default:
         stap();
        break;  
-*/
+
     }
   //pwrChk();
 }
