@@ -19,7 +19,7 @@ int m;
 // Define some steppers and the pins the will use
 AccelStepper LFwheel(1, 27, 25);  // (Type:driver, STEP, DIR)
 AccelStepper RFwheel(1, 32, 12 );
-AccelStepper LRwheel(1, 9, 14 );
+AccelStepper LRwheel(1, 5, 13 );
 AccelStepper RRwheel(1, 4,  0);
 
 
@@ -68,21 +68,17 @@ void onConnection(){
 }
 
 void onDisconnect(){
-  if (!PS4.isConnected()){
+  
     Serial.println("lost controller");
     digitalWrite(motEn, 0);
     stap();
-  }
+  
 }
 
 void onEvent(){
 
   if(PS4.event.button_down.up){
     m = 8;
-  }
-  if(PS4.event.button_up.up){
-    m = 100;
-    stap();
   }
   if(PS4.event.button_down.down){
     m = 2;
@@ -111,6 +107,14 @@ void onEvent(){
   if(PS4.event.button_down.r1){
     rotRight();
   }
+  if(PS4.event.button_up.down){
+    m = 100;
+    stap();
+  }
+  if(PS4.event.button_up.up){
+    m = 100;
+    stap();
+  }
 
 }
 
@@ -131,7 +135,7 @@ void loop()
        break;
 
       case 0:
-        rotLeft();
+       // rotLeft();
        break;
 
       case 9:
@@ -167,7 +171,7 @@ void loop()
        break;
 
       default:
-        stap();
+       // stap();
        break;  
 
     }
