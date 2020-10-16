@@ -10,7 +10,7 @@
 const int motEn = 2;
 
 
-int pace = 600;
+int pace = 300;
 int zip = 200;
 int dataIn;
 int m;
@@ -78,28 +78,36 @@ void onDisconnect(){
 void onEvent(){
 
   if(PS4.event.button_down.up){
-    m = 8;
+    //m = 8;
+    moveForw();
   }
   if(PS4.event.button_down.down){
-    m = 2;
+    //m = 2;
+    moveBack();
   }
   if(PS4.event.button_down.left){
-    m = 4;
+    //m = 4;
+    moveLeft();
   }
   if(PS4.event.button_down.right){
-    m = 6;
+   // m = 6;
+   moveRight();
   }
   if(PS4.event.button_down.upleft){
-    m = 7;
+   // m = 7;
+   forwLeft();
   }
   if(PS4.event.button_down.upright){
-    m = 9;
+   // m = 9;
+   forwRight();
   }
   if(PS4.event.button_down.downleft){
-    m = 1;
+    //m = 1;
+    backLeft();
   }
   if(PS4.event.button_down.downright){
-    m = 3;
+   // m = 3;
+   backRight();
   }
   if(PS4.event.button_down.l1){
     rotLeft();
@@ -107,15 +115,46 @@ void onEvent(){
   if(PS4.event.button_down.r1){
     rotRight();
   }
-  if(PS4.event.button_up.down){
+ else if(PS4.event.button_up.down){
     m = 100;
     stap();
   }
-  if(PS4.event.button_up.up){
+ else if(PS4.event.button_up.up){
     m = 100;
     stap();
   }
-
+ else if(PS4.event.button_up.left){
+    m = 100;
+    stap();
+  }
+ else if(PS4.event.button_up.upleft){
+    m = 100;
+    stap();
+  }
+ else if(PS4.event.button_up.upright){
+    m = 100;
+    stap();
+  }
+ else if(PS4.event.button_up.right){
+    m = 100;
+    stap();
+  }
+ else if(PS4.event.button_up.downleft){
+    m = 100;
+    stap();
+  }
+ else if(PS4.event.button_up.downright){
+    m = 100;
+    stap();
+  }
+ else if(PS4.event.button_up.l1){
+    m = 100;
+    stap();
+  }
+ else if(PS4.event.button_up.r1){
+    m = 100;
+    stap();
+  }
 }
 
 
