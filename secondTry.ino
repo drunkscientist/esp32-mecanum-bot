@@ -69,9 +69,10 @@ void onConnection(){
 
 void onDisconnect(){
   
-    Serial.println("lost controller");
+    Serial.println("lost controller, restarting");
     digitalWrite(motEn, 0);
     stap();
+    ESP.restart();
   
 }
 
@@ -154,6 +155,15 @@ void onEvent(){
  else if(PS4.event.button_up.r1){
     m = 100;
     stap();
+  }
+
+
+  if (PS4.event.button_down.triangle){
+    pace + 50;
+  }
+
+  if (PS4.event.button_down.cross){
+    pace - 50;
   }
 }
 
